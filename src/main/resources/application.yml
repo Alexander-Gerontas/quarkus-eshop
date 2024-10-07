@@ -1,0 +1,10 @@
+quarkus:
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:3306/quarkus-db
+    username: ${POSTGRES_USER:admin}
+    password: ${POSTGRES_PASSWORD:password}
+    driverClassName: org.postgresql.Driver
+
+  liquibase:
+    change-log: classpath:/changelog/db.changelog-master.xml
+    enabled: true
