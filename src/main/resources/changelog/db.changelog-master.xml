@@ -3,15 +3,6 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-  <!-- user tables schema -->
-  <include file="db.changelog-1.0.user_tables.xml" relativeToChangelogFile="true"/>
-
-  <!-- token table schema -->
-<!--  <include file="db.changelog-1.1.token_table.xml" relativeToChangelogFile="true"/>-->
-
-  <!-- interaction table schema -->
-<!--  <include file="db.changelog-1.2.interaction_table.xml" relativeToChangelogFile="true"/>-->
-
-  <!-- message tables schema -->
-<!--  <include file="db.changelog-1.3.message_tables.xml" relativeToChangelogFile="true"/>-->
+  <!-- basic tables schema -->
+  <include file="db.changelog-1.0.basic_tables.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

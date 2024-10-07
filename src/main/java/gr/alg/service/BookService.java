@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 @ApplicationScoped
 @RequiredArgsConstructor
-public class UserService {
+public class BookService {
 
   private final UserRepository userRepository;
   private final JPAStreamer jpaStreamer;

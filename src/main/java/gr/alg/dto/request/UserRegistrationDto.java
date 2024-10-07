@@ -1,4 +1,4 @@
-package gr.alg.entity;
+package gr.alg.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -14,7 +14,7 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
-public class UserDto {
+public class UserRegistrationDto {
   @NotBlank(message = "Email is mandatory")
   @Email(message = "Email should be valid")
   private String email;

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <preConditions>
+        <dbms type="postgresql"/>
+    </preConditions>
+
+    <!-- base user table -->
+    <changeSet id="user-table-creation" author="author" failOnError="true">
+        <preConditions>
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+        <createTable tableName="users">
+            <column name="id" type="SERIAL" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="user_pk"/>
+            </column>
+            <column name="email" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- base book table -->
+    <changeSet id="book-table-creation" author="author" failOnError="true">
+        <preConditions>
+            <not>
+                <tableExists tableName="books"/>
+            </not>
+        </preConditions>
+        <createTable tableName="books">
+            <column name="id" type="SERIAL" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="user_pk"/>
+            </column>
+            <column name="title" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="author" type="varchar(15)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- base order table -->
+    <changeSet id="order-table-creation" author="author" failOnError="true">
+        <preConditions>
+            <not>
+                <tableExists tableName="orders"/>
+            </not>
+        </preConditions>
+        <createTable tableName="orders">
+            <column name="id" type="SERIAL" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="user_pk"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="user_fk" references="users(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- base order item table -->
+    <changeSet id="order-item-table-creation" author="author" failOnError="true">
+        <preConditions>
+            <not>
+                <tableExists tableName="order_items"/>
+            </not>
+        </preConditions>
+        <createTable tableName="order_items">
+            <column name="id" type="SERIAL" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="user_pk"/>
+            </column>
+            <column name="order_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="order_fk" references="orders(id)"/>
+            </column>
+            <column name="orde" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

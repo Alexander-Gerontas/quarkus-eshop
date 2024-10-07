@@ -31,28 +31,11 @@
     </dependencyManagement>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>io.quarkus</groupId>-->
-<!--            <artifactId>quarkus-rest</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>io.quarkiverse.jpastreamer</groupId>
             <artifactId>quarkus-jpastreamer</artifactId>
             <version>3.0.3.Final</version>
         </dependency>
-
-<!--        todo remove-->
-        <!-- default dependency -->
-<!--        <dependency>-->
-<!--            <groupId>io.quarkus</groupId>-->
-<!--            <artifactId>quarkus-rest-jackson</artifactId>-->
-<!--        </dependency>-->
-
-        <!-- RESTEasy JAX-RS implementation -->
-<!--        <dependency>-->
-<!--            <groupId>io.quarkus</groupId>-->
-<!--            <artifactId>quarkus-resteasy</artifactId>-->
-<!--        </dependency>-->
 
         <!-- JSON support with Jackson -->
         <dependency>

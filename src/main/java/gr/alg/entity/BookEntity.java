@@ -20,15 +20,17 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
-@Table(name = "users")
-public class UserEntity {
+@Table(name = "books")
+public class BookEntity {
 
   @Id
   @GeneratedValue(strategy = IDENTITY)
   @Column(name = "id", updatable = false, nullable = false)
   private Long id;
 
-  private String email;
-  private String username;
-  private String password;
+  @Column(name = "title", updatable = false, nullable = false)
+  private String title;
+
+  @Column(name = "author", updatable = false, nullable = false)
+  private String author;
 }

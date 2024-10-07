@@ -4,7 +4,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
 import gr.alg.configuration.BaseIntegrationTest;
-import gr.alg.entity.UserDto;
+import gr.alg.dto.request.UserRegistrationDto;
 import gr.alg.repository.UserRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
@@ -25,7 +25,7 @@ class UserControllerIT extends BaseIntegrationTest {
   @Test
   @SneakyThrows
   void successfulUserRegistration() {
-    var userDto = UserDto.builder()
+    var userDto = UserRegistrationDto.builder()
         .email("user@test.gr")
         .username("testuser")
         .password("pass123")
@@ -46,7 +46,7 @@ class UserControllerIT extends BaseIntegrationTest {
   @Test
   @SneakyThrows
   void successfulUserFetch() {
-    var userDto = UserDto.builder()
+    var userDto = UserRegistrationDto.builder()
         .email("user@test.gr")
         .username("testuser")
         .password("pass123")
