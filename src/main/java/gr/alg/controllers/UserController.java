@@ -30,8 +30,6 @@ public class UserController {
 
   @POST
   @Path(REGISTER)
-  @Produces(MediaType.APPLICATION_JSON)
-  @Consumes(MediaType.APPLICATION_JSON)
   public Response registerUser(@Valid UserRegistrationDto userDto) {
     userService.createUser(userDto);
 
@@ -43,8 +41,6 @@ public class UserController {
 
   @GET
   @Path( FIND_USER + "/{username}")
-  @Produces(MediaType.APPLICATION_JSON)
-  @Consumes(MediaType.APPLICATION_JSON)
   public Response getUser(@PathParam(USERNAME) String username) {
     var user = userService.findUser(username);
 
