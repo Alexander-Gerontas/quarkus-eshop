@@ -14,6 +14,15 @@ public final class ControllerConstants {
   // book
   public static final String BOOK = "/book";
 
+  // order
+  public static final String ORDER = "/order";
+
+  // product
+  public static final String PRODUCT = "/product";
+  public static final String FIND_PRODUCT = "/find-product";
+  public static final String PRODUCT_ID = "/product-id";
+  public static final String CREATE = "/create";
+
   // parameters
   public static final String USERNAME = "username";
 }
