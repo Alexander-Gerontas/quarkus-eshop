@@ -37,7 +37,11 @@ class UserControllerIT extends BaseIntegrationTest {
 
     registerUser(userDto);
 
-    var totalUsers = userRepository.findAll().list().size();
+    var dbUsers = userRepository.findAll().list();
+    var totalUsers = dbUsers.size();
+    var userEntity = dbUsers.getFirst();
+
+    Assertions.assertEquals(userDto.getEmail(), userEntity.getEmail());
     Assertions.assertEquals(1, totalUsers);
   }
 
