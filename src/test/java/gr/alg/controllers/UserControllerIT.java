@@ -1,5 +1,9 @@
 package gr.alg.controllers;
 
+import static gr.alg.constants.ControllerConstants.API_V1;
+import static gr.alg.constants.ControllerConstants.FIND_USER;
+import static gr.alg.constants.ControllerConstants.REGISTER;
+import static gr.alg.constants.ControllerConstants.USER;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
@@ -7,6 +11,7 @@ import gr.alg.configuration.BaseIntegrationTest;
 import gr.alg.dto.request.UserRegistrationDto;
 import gr.alg.repository.UserRepository;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response.Status;
@@ -18,7 +23,6 @@ import org.junit.jupiter.api.TestInstance;
 @QuarkusTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class UserControllerIT extends BaseIntegrationTest {
-
   @Inject
   UserRepository userRepository;
 
@@ -31,15 +35,13 @@ class UserControllerIT extends BaseIntegrationTest {
         .password("pass123")
         .build();
 
-    given()
-        .contentType(ContentType.JSON)
-        .body(userDto)
-    .when()
-        .post("/api/v1/user/register")
-    .then()
-        .statusCode(201);
+    registerUser(userDto);
 
-    var totalUsers = userRepository.findAll().list().size();
+    var dbUsers = userRepository.findAll().list();
+    var totalUsers = dbUsers.size();
+    var userEntity = dbUsers.getFirst();
+
+    Assertions.assertEquals(userDto.getEmail(), userEntity.getEmail());
     Assertions.assertEquals(1, totalUsers);
   }
 
@@ -52,21 +54,25 @@ class UserControllerIT extends BaseIntegrationTest {
         .password("pass123")
         .build();
 
-    given()
-        .contentType(ContentType.JSON)
-        .body(userDto)
-    .when()
-        .post("/api/v1/user/register")
-    .then()
-        .statusCode(201);
+    registerUser(userDto);
 
     given()
         .contentType(ContentType.JSON)
     .when()
-        .get("/api/v1/user/find-user/" + userDto.getUsername())
+        .get(API_V1 + USER + FIND_USER + "/" + userDto.getUsername())
     .then()
         .statusCode(Status.FOUND.getStatusCode())
         .body("username", is(userDto.getUsername()))
-    ;
+        .log().ifValidationFails(LogDetail.BODY);
+  }
+
+  private void registerUser(UserRegistrationDto userDto) {
+    given()
+        .contentType(ContentType.JSON)
+        .body(userDto)
+        .when()
+        .post(API_V1 + USER + REGISTER)
+        .then()
+        .statusCode(Status.CREATED.getStatusCode());
   }
 }
