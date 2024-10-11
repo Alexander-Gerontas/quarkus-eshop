@@ -15,6 +15,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response.Status;
+import java.math.BigDecimal;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -54,15 +55,10 @@ class ProductControllerIT extends BaseIntegrationTest {
         .productName("test-product")
         .description("description")
         .stock(5L)
+        .price(BigDecimal.valueOf(15.5))
         .build();
 
-    given()
-        .contentType(ContentType.JSON)
-        .body(productDto)
-    .when()
-        .post(API_V1 + PRODUCT + CREATE)
-    .then()
-        .statusCode(Status.CREATED.getStatusCode());
+    createProduct(productDto);
 
     var totalProducts = productRepository.findAll().list().size();
     Assertions.assertEquals(1, totalProducts);
@@ -76,36 +72,36 @@ class ProductControllerIT extends BaseIntegrationTest {
         .productName("test-product")
         .description("description")
         .stock(5L)
+        .price(BigDecimal.valueOf(15.5))
         .build();
 
-    given()
-        .contentType(ContentType.JSON)
-        .body(productDto)
-        .when()
-        .post(API_V1 + PRODUCT + CREATE)
-        .then()
-        .statusCode(201);
+    createProduct(productDto);
 
+    var dbProducts = productRepository.findAll().list();
+    var dbProduct = dbProducts.getFirst();
     var totalProducts = productRepository.findAll().list().size();
+
+    Assertions.assertEquals(productDto.getProductName(), dbProduct.getProductName());
     Assertions.assertEquals(1, totalProducts);
 
     given()
         .contentType(ContentType.JSON)
     .when()
-        .get(API_V1 + PRODUCT + FIND_PRODUCT + productDto.getProductName())
+        .get(API_V1 + PRODUCT + FIND_PRODUCT + "/" + dbProduct.getId())
     .then()
         .statusCode(Status.FOUND.getStatusCode())
         .body("description", is(productDto.getDescription()))
-    ;
+        .log().ifError();
   }
 
   private void createProduct(CreateProductDto productDto) {
     given()
         .contentType(ContentType.JSON)
         .body(productDto)
-        .when()
+    .when()
         .post(API_V1 + PRODUCT + CREATE)
-        .then()
-        .statusCode(201);
+    .then()
+        .statusCode(Status.CREATED.getStatusCode())
+        .log().ifError();
   }
 }

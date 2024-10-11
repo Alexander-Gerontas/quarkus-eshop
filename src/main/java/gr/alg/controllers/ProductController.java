@@ -41,11 +41,11 @@ public class ProductController {
   @GET
   @Path( FIND_PRODUCT + "/{product-id}")
   public Response getProduct(@PathParam(PRODUCT_ID) Long productId) {
-    var user = productService.findProductById(productId);
+    var productResponseDto = productService.findProductById(productId);
 
     return Response
         .status(Status.FOUND)
-        .entity(user)
+        .entity(productResponseDto)
         .build();
   }
 }

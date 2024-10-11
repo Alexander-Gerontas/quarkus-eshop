@@ -3,7 +3,7 @@ package gr.alg.constants;
 public final class ControllerConstants {
 
   // path
-  public static final String API_V1 = "/api/v1/user";
+  public static final String API_V1 = "/api/v1";
 
   // user
   public static final String USER = "/user";
@@ -20,9 +20,9 @@ public final class ControllerConstants {
   // product
   public static final String PRODUCT = "/product";
   public static final String FIND_PRODUCT = "/find-product";
-  public static final String PRODUCT_ID = "/product-id";
   public static final String CREATE = "/create";
 
   // parameters
   public static final String USERNAME = "username";
+  public static final String PRODUCT_ID = "product-id";
 }
