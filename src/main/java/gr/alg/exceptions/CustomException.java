@@ -7,9 +7,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CustomException extends Exception {
-  private Status status;
+public class CustomException extends RuntimeException {
   private String message;
+  private Status status;
 
   public CustomException(Exception exception) {
     this(exception, Status.BAD_REQUEST);
@@ -18,6 +18,11 @@ public class CustomException extends Exception {
   public CustomException(Exception exception, Status status) {
     this.status = status;
     this.message = exception.getMessage();
+  }
+
+  public CustomException(String message, Status status) {
+    this.status = status;
+    this.message = message;
   }
 
   public Response getResponse() {

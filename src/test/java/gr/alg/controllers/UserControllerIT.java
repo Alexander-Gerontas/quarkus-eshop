@@ -14,9 +14,11 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response.Status;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -25,6 +27,12 @@ import org.junit.jupiter.api.TestInstance;
 class UserControllerIT extends BaseIntegrationTest {
   @Inject
   UserRepository userRepository;
+
+  @BeforeEach
+  @Transactional
+  void setUp() {
+    userRepository.deleteAll();
+  }
 
   @Test
   @SneakyThrows

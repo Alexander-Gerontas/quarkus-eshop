@@ -3,6 +3,7 @@ package gr.alg.mappers;
 import gr.alg.dto.request.CreateProductDto;
 import gr.alg.dto.response.ProductResponseDto;
 import gr.alg.entity.ProductEntity;
+import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -15,4 +16,7 @@ public interface ProductMapper {
 
   @Mapping(source = "entity.id", target = "productId")
   ProductResponseDto toResponseDto(ProductEntity entity);
+
+  // Method to map a list of ProductEntity to a list of ProductResponseDto
+  List<ProductResponseDto> toResponseDtoList(List<ProductEntity> entityList);
 }

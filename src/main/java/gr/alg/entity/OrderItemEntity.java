@@ -6,9 +6,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,27 +21,24 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
-@Table(name = "products")
-public class ProductEntity {
+@Table(name = "order_items")
+public class OrderItemEntity {
   @Id
   @GeneratedValue(strategy = IDENTITY)
   @Column(name = "id", updatable = false, nullable = false)
   private Long id;
 
-  @Column(name = "product_name", updatable = false, nullable = false)
-  private String productName;
+  @ManyToOne
+  @JoinColumn(name = "product_id", nullable = false)
+  private ProductEntity product;
 
-  @Column(name = "description", updatable = false, nullable = false)
-  private String description;
+  @ManyToOne
+  @JoinColumn(name = "order_id", nullable = false)
+  private OrderEntity order;
 
-  @Column(name = "price", nullable = false)
-  private BigDecimal price;
+  private int quantity;
 
-  @Column(name = "stock", nullable = false)
-  private int stock;
-
-  @Column(name = "created_at", updatable = false, nullable = false)
-  private LocalDate createdAt;
+  private BigDecimal unitPurchasePrice;
 }

@@ -31,6 +31,35 @@
         </createTable>
     </changeSet>
 
+    <!-- base product table -->
+    <changeSet id="product-table-creation" author="author" failOnError="true">
+        <preConditions>
+            <not>
+                <tableExists tableName="products"/>
+            </not>
+        </preConditions>
+        <createTable tableName="products">
+            <column name="id" type="SERIAL" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="user_pk"/>
+            </column>
+            <column name="product_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="decimal(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stock" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
     <!-- base book table -->
     <changeSet id="book-table-creation" author="author" failOnError="true">
         <preConditions>
@@ -79,10 +108,19 @@
             <column name="id" type="SERIAL" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="user_pk"/>
             </column>
+            <column name="product_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="product_fk" references="products(id)"/>
+            </column>
             <column name="order_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="order_fk" references="orders(id)"/>
             </column>
-            <column name="orde" type="varchar(100)">
+            <column name="quantity" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="unitPurchasePrice" type="decimal(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="placed_at" type="timestamp">
                 <constraints nullable="false"/>
             </column>
         </createTable>

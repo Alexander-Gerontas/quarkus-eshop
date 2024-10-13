@@ -41,7 +41,7 @@ public class UserController {
   @GET
   @Path( FIND_USER + "/{username}")
   public Response getUser(@PathParam(USERNAME) String username) {
-    var user = userService.findUser(username);
+    var user = userService.getUserResponseDto(username);
 
     return Response
         .status(Status.FOUND)

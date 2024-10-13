@@ -9,16 +9,19 @@ import static org.hamcrest.CoreMatchers.is;
 
 import gr.alg.configuration.BaseIntegrationTest;
 import gr.alg.dto.request.CreateProductDto;
+import gr.alg.repository.OrderItemRepository;
+import gr.alg.repository.OrderRepository;
 import gr.alg.repository.ProductRepository;
 import gr.alg.repository.UserRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response.Status;
 import java.math.BigDecimal;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -27,7 +30,18 @@ import org.junit.jupiter.api.TestInstance;
 class ProductControllerIT extends BaseIntegrationTest {
 
   @Inject UserRepository userRepository;
+  @Inject OrderRepository orderRepository;
+  @Inject OrderItemRepository orderItemRepository;
   @Inject ProductRepository productRepository;
+
+  @BeforeEach
+  @Transactional
+  void setUp() {
+    orderItemRepository.deleteAll();
+    orderRepository.deleteAll();
+    productRepository.deleteAll();
+    userRepository.deleteAll();
+  }
 
   @Test
   @SneakyThrows
@@ -54,7 +68,7 @@ class ProductControllerIT extends BaseIntegrationTest {
     var productDto = CreateProductDto.builder()
         .productName("test-product")
         .description("description")
-        .stock(5L)
+        .stock(5)
         .price(BigDecimal.valueOf(15.5))
         .build();
 
@@ -65,13 +79,12 @@ class ProductControllerIT extends BaseIntegrationTest {
   }
 
   @Test
-  @Disabled("todo switch to product")
   @SneakyThrows
   void successfulProductFetch() {
     var productDto = CreateProductDto.builder()
         .productName("test-product")
         .description("description")
-        .stock(5L)
+        .stock(5)
         .price(BigDecimal.valueOf(15.5))
         .build();
 

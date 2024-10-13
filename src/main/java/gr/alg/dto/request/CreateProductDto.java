@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public class CreateProductDto {
@@ -26,5 +26,5 @@ public class CreateProductDto {
   private BigDecimal price;
 
   @NotNull(message = "stock cannot be blank")
-  private Long stock;
+  private int stock;
 }
