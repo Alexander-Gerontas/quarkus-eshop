@@ -46,25 +46,6 @@ class ProductControllerIT extends BaseIntegrationTest {
   @Test
   @SneakyThrows
   void successfulProductCreation() {
-//    var userDto = UserRegistrationDto.builder()
-//        .email("user@test.gr")
-//        .username("testuser")
-//        .password("pass123")
-//        .build();
-
-    // todo add user roles. only users with specific roles can create products
-
-//    given()
-//        .contentType(ContentType.JSON)
-//        .body(userDto)
-//    .when()
-//        .post("/api/v1/user/register")
-//    .then()
-//        .statusCode(201);
-
-//    var totalUsers = userRepository.findAll().list().size();
-//    Assertions.assertEquals(1, totalUsers);
-
     var productDto = CreateProductDto.builder()
         .productName("test-product")
         .description("description")

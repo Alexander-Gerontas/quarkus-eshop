@@ -34,18 +34,4 @@ public class OrderController {
         .entity("order placed successfully")
         .build();
   }
-
-  // todo fetch order
-//  @GET
-//  @Path( FIND_USER + "/{username}")
-//  @Produces(MediaType.APPLICATION_JSON)
-//  @Consumes(MediaType.APPLICATION_JSON)
-//  public Response getUser(@PathParam(USERNAME) String username) {
-//    var user = pro.findUser(username);
-//
-//    return Response
-//        .status(Status.FOUND)
-//        .entity(user)
-//        .build();
-//  }
 }
